@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubearmor-policies
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/vijaykvv/security-policies.git
+    targetRevision: HEAD
+    path: kubearmor
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kubearmor
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
