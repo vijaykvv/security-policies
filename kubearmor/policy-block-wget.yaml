@@ -1,0 +1,14 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: block-wget
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: vote
+      severity: critical
+  process:
+    matchPaths:
+      - path: /usr/bin/wget
+  action: Block
