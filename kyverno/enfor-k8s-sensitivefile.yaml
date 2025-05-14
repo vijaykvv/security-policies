@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-kubearmor-sensitive-files
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: add-kubearmor-policy
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        generateExisting: true
+        kind: KubeArmorPolicy
+        apiVersion: security.kubearmor.com/v1
+        namespace: "{{request.object.metadata.name}}"
+        name: block-sensitive-files
+        data:
+          spec:
+            severity: 5
+            selector:
+              matchLabels:
+                app: nginx-netshoot
+            file:
+              matchPaths:
+                - path: /etc/shadow
+                  action: Block
