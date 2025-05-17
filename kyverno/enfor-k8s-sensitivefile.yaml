@@ -21,7 +21,7 @@ spec:
             severity: 5
             selector:
               matchLabels:
-                severity: critical
+                app: "{{request.object.metadata.labels.app}}"
             file:
               matchPaths:
                 - path: /etc/shadow
