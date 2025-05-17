@@ -12,7 +12,7 @@ spec:
             - Namespace
           selector:
             matchLabels:
-              severity: critical  
+              severity: critical
       generate:
         generateExisting: true
         kind: KubeArmorPolicy
