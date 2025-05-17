@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-kubearmor-allow-specificbinaryfiles
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: add-kubearmor-policy
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        generateExisting: true
+        kind: KubeArmorPolicy
+        apiVersion: security.kubearmor.com/v1
+        namespace: "{{request.object.metadata.name}}"
+        name: allow-specific-binaries
+        data:
+          spec:
+            severity: 5
+            selector:
+              matchLabels:
+                app: nginx-netshoot 
+            process:
+              matchPaths:
+              - path: /bin/bash
+              - path: /usr/bin/curl
+            action: Block

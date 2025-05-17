@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: allow-readonly-accessto-configsecrets
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: add-kubearmor-policy
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        generateExisting: true
+        kind: KubeArmorPolicy
+        apiVersion: security.kubearmor.com/v1
+        namespace: "{{request.object.metadata.name}}"
+        name: readonly-accessto-configsecrets
+        data:
+          spec:
+            file:
+              matchDirectories:
+              - dir: /etc/config/
+                readOnly: true
+            action: Audit  # Or Block if strict
+
+            
+            
