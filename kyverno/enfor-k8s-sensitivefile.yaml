@@ -10,9 +10,6 @@ spec:
         resources:
           kinds:
             - Namespace
-          selector:
-            matchLabels:
-              severity: critical
       generate:
         generateExisting: true
         kind: KubeArmorPolicy
