@@ -21,7 +21,7 @@ spec:
             severity: 5
             selector:
               matchLabels:
-                severity: critical
+                app: nginx-netshoot
             file:
               matchPaths:
                 - path: /etc/shadow
