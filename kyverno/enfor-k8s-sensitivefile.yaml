@@ -19,9 +19,7 @@ spec:
         data:
           spec:
             severity: 5
-            selector:
-              matchLabels:
-                app: nginx-netshoot
+            selector: {}
             file:
               matchPaths:
                 - path: /etc/shadow
