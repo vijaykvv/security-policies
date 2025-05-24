@@ -19,7 +19,9 @@ spec:
         data:
           spec:
             severity: 5
-            selector: {}
+            selector:
+              matchLabels:
+                severity: critical
             file:
               matchPaths:
                 - path: /etc/shadow
