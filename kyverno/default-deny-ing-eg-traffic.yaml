@@ -1,0 +1,24 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-default-deny
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: add-network-policy
+      match:
+        resources:
+          kinds:
+            - Namespace
+      generate:
+        generateExisting: true
+        kind: NetworkPolicy
+        apiVersion: networking.k8s.io/v1
+        namespace: "{{request.object.metadata.name}}"
+        name: default-deny-all
+        data:
+          spec:
+            podSelector: {}
+            policyTypes:
+              - Ingress
+              - Egress
