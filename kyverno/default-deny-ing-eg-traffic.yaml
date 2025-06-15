@@ -9,13 +9,8 @@ spec:
         resources:
           kinds:
             - Namespace
-      exclude:
-        any:
-          - resources:
-              namespaces:
-                - kube-system
-                - argocd
-                - kyverno
+          names:
+            - voting-app
       generate:
         apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
@@ -28,3 +23,4 @@ spec:
               - Ingress
               - Egress
         generateExisting: true
+  validationFailureAction: Enforce
