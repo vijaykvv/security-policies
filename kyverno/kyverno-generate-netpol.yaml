@@ -13,15 +13,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-external-to-vote
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-external-to-vote
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -41,15 +39,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-external-to-result
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-external-to-result
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -69,15 +65,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-result-to-db
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-result-to-db
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -98,15 +92,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-result-egress-to-db
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-result-egress-to-db
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -127,15 +119,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-worker-to-db
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-worker-to-db
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -156,15 +146,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-worker-egress-to-db
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-worker-egress-to-db
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -185,15 +173,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-worker-to-redis
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-worker-to-redis
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -214,15 +200,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-worker-egress-to-redis
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-worker-egress-to-redis
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -243,15 +227,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-vote-to-redis
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-vote-to-redis
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -272,15 +254,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-vote-egress-to-redis
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-vote-egress-to-redis
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -301,15 +281,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-egress-to-result
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-egress-to-result
-            namespace: voting-app
           spec:
             podSelector:
               matchLabels:
@@ -330,15 +308,13 @@ spec:
               names:
                 - voting-app
       generate:
+        apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
         name: allow-dns
         namespace: voting-app
+        synchronize: true
+        generateExisting: true
         data:
-          apiVersion: networking.k8s.io/v1
-          kind: NetworkPolicy
-          metadata:
-            name: allow-dns
-            namespace: voting-app
           spec:
             podSelector: {}
             policyTypes:
