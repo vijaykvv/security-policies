@@ -1,0 +1,358 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-voting-app-netpols
+spec:
+  rules:
+    - name: generate-voting-app-netpols
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-external-to-vote
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-external-to-vote
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                apptype: frontend
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - ipBlock:
+                      cidr: 0.0.0.0/0
+    - name: generate-allow-external-to-result
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-external-to-result
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-external-to-result
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: result
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - ipBlock:
+                      cidr: 0.0.0.0/0
+    - name: generate-allow-result-to-db
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-result-to-db
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-result-to-db
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: db
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - podSelector:
+                      matchLabels:
+                        app: result
+    - name: generate-allow-result-egress-to-db
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-result-egress-to-db
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-result-egress-to-db
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: result
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - podSelector:
+                      matchLabels:
+                        app: db
+    - name: generate-allow-worker-to-db
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-worker-to-db
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-worker-to-db
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: db
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - podSelector:
+                      matchLabels:
+                        app: worker
+    - name: generate-allow-worker-egress-to-db
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-worker-egress-to-db
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-worker-egress-to-db
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: worker
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - podSelector:
+                      matchLabels:
+                        app: db
+    - name: generate-allow-worker-to-redis
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-worker-to-redis
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-worker-to-redis
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: redis
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - podSelector:
+                      matchLabels:
+                        app: worker
+    - name: generate-allow-worker-egress-to-redis
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-worker-egress-to-redis
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-worker-egress-to-redis
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: worker
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - podSelector:
+                      matchLabels:
+                        app: redis
+    - name: generate-allow-vote-to-redis
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-vote-to-redis
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-vote-to-redis
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                app: redis
+            policyTypes:
+              - Ingress
+            ingress:
+              - from:
+                  - podSelector:
+                      matchLabels:
+                        apptype: frontend
+    - name: generate-allow-vote-egress-to-redis
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-vote-egress-to-redis
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-vote-egress-to-redis
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                apptype: frontend
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - podSelector:
+                      matchLabels:
+                        app: redis
+    - name: generate-allow-egress-to-result
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-egress-to-result
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-egress-to-result
+            namespace: voting-app
+          spec:
+            podSelector:
+              matchLabels:
+                apptype: frontend
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - podSelector:
+                      matchLabels:
+                        app: result
+    - name: generate-allow-dns
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+              names:
+                - voting-app
+      generate:
+        kind: NetworkPolicy
+        name: allow-dns
+        namespace: voting-app
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: NetworkPolicy
+          metadata:
+            name: allow-dns
+            namespace: voting-app
+          spec:
+            podSelector: {}
+            policyTypes:
+              - Egress
+            egress:
+              - to:
+                  - namespaceSelector:
+                      matchLabels:
+                        kubernetes.io/metadata.name: kube-system
+                    podSelector:
+                      matchLabels:
+                        k8s-app: kube-dns
+                ports:
+                  - protocol: UDP
+                    port: 53
+                  - protocol: TCP
+                    port: 53 
