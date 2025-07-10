@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: generate-cilium-l7-policy
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: add-cilium-l7-policy
+      match:
+        resources:
+          kinds:
+            - Namespace
+          names:
+            - voting-app
+      generate:
+        apiVersion: cilium.io/v2
+        kind: CiliumNetworkPolicy
+        name: frontend-l7-http
+        namespace: voting-app
+        data:
+          spec:
+            endpointSelector:
+              matchLabels:
+                app: frontend
+            ingress:
+              - toPorts:
+                  - ports:
+                      - port: "80"
+                        protocol: TCP
+                    rules:
+                      http:
+                        - method: "GET"
+                          path: "/public"
+        generateExisting: true
