@@ -1,0 +1,3 @@
+resources:
+  - l7pol-all-frontend-get-results.yaml
+  - l7pol-allow-post-from-frontend.yaml
