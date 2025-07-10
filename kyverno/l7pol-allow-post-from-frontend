@@ -1,0 +1,21 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-frontend-post-vote
+  namespace: voting-app
+spec:
+  endpointSelector:
+    matchLabels:
+      app: vote
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            apptype: frontend
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+          rules:
+            http:
+              - method: "POST"
+                path: "/vote"
