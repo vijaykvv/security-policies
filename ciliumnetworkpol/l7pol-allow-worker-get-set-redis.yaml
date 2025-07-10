@@ -1,0 +1,22 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-worker-redis-commands
+  namespace: voting-app
+spec:
+  endpointSelector:
+    matchLabels:
+      app: redis
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: worker
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+          rules:
+            l7proto: "redis"
+            redis:
+              - command: "GET"
+              - command: "SET"

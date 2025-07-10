@@ -1,0 +1,19 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-internal-db
+  namespace: voting-app
+spec:
+  endpointSelector:
+    matchLabels:
+      app: db
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: backend
+        - matchLabels:
+            app: worker
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
