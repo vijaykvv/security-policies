@@ -8,10 +8,10 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            role: monitoring
+            severity: critical
       toPorts:
         - ports:
-            - port: "80"
+            - port: "8080"
               protocol: TCP
           rules:
             http:
