@@ -8,14 +8,14 @@ spec:
     matchLabels:
       app: result
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            apptype: frontend
+    - fromEndpoints: []
       toPorts:
         - ports:
-            - port: "8081"
+            - port: "80"
               protocol: TCP
           rules:
             http:
               - method: "GET"
-                path: "/results"
+                path: "/"
+
+                

@@ -8,14 +8,12 @@ spec:
     matchLabels:
       app: vote
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            apptype: frontend
+    - fromEndpoints: []
       toPorts:
         - ports:
-            - port: "8080"
+            - port: "80"
               protocol: TCP
           rules:
             http:
               - method: "POST"
-                path: "/vote"
+                path: "/"
