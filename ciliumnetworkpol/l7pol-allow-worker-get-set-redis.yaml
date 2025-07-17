@@ -18,5 +18,7 @@ spec:
           rules:
             l7proto: "redis"
             redis:
+              - command: "LPOP"
               - command: "GET"
               - command: "SET"
+              - command: "RPUSH"

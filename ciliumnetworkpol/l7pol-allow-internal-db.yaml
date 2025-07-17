@@ -10,7 +10,7 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            app: backend
+            app: result
         - matchLabels:
             app: worker
       toPorts:
