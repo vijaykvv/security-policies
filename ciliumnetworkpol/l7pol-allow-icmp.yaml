@@ -5,15 +5,9 @@ metadata:
   namespace: voting-app
 spec:
   endpointSelector: {}
-  egress:
-  - toEntities:
-    - all
-    toPorts:
-    - ports:
-      - protocol: ICMP
   ingress:
-  - fromEntities:
-    - all
-    toPorts:
-    - ports:
-      - protocol: ICMP
+  - icmps:
+    - {}
+  egress:
+  - icmps:
+    - {}
