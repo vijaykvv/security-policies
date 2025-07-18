@@ -3,4 +3,5 @@ resources:
   - l7pol-allow-post-from-frontend.yaml
   - l7pol-allow-worker-get-set-redis.yaml
   - l7pol-allow-internal-db.yaml
+  - l7pol-allow-icmp.yaml
 
