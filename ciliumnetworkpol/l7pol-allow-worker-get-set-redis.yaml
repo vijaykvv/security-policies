@@ -1,6 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  labels:
+    app.kubernetes.io/instance: cilium-l7-policies
   name: allow-worker-redis-commands
   namespace: voting-app
 spec:
