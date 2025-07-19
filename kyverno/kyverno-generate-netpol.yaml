@@ -31,7 +31,7 @@ spec:
                   - ipBlock:
                       cidr: 49.204.3.88/32
                   - ipBlock:
-                      cidr: 10.0.0.0/8
+                      cidr: 10.0.0.0/0
                   - ipBlock:
                       cidr: 172.16.0.0/12
                   - ipBlock:
