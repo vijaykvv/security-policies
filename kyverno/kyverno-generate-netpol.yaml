@@ -29,10 +29,7 @@ spec:
             ingress:
               - from:
                   - ipBlock:
-                      cidr: 49.204.3.88/32
-                ports:
-                  - protocol: TCP
-                    port: 8080                  
+                      cidr: 49.204.3.88/32            
     - name: generate-allow-external-to-result
       match:
         any:
