@@ -29,7 +29,7 @@ spec:
             ingress:
               - from:
                   - ipBlock:
-                      cidr: 49.204.3.88/32            
+                      cidr: 0.0.0.0/0            
     - name: generate-allow-external-to-result
       match:
         any:
